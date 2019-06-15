@@ -33,6 +33,11 @@ public class MainController {
         modelMap.put("users", userRepository.findAll());
         return "redirect:/demo";
     }
+    @GetMapping(path = "/find")
+    public String findUser(@RequestParam String name, ModelMap modelMap){
+        modelMap.put("users", userRepository.findByName(userRepository.findAll(), name));
+        return "index";
+    }
 
     @PostMapping(path="/addComment/{id}")
     public String addComment (@RequestParam String comment, @PathVariable int id, ModelMap modelMap){
@@ -42,7 +47,7 @@ public class MainController {
         modelMap.put("users", userRepository.findAll());
         return "index";
     }
-    @PostMapping(path="/deleteComment/{id}")
+    @GetMapping(path="/deleteComment/{id}")
     public String addComment (@PathVariable int id, ModelMap modelMap){
         User a = userRepository.findById(id).get();
         a.setComment("");

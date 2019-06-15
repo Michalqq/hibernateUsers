@@ -12,56 +12,71 @@
 <body>
 
 <div class="container">
-    <h2>Create User</h2>
-    <form action="/demo/add" method="post">
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="name" name="name">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="email" name="email">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    <div>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Comment</th>
-                <th>AddComment</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="user: ${users}">
-                <td th:text="${user.name}"></td>
-                <td th:text="${user.email}"></td>
-                <td th:text="${user.comment}"></td>
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>Create User</h2>
+            <form action="/demo/add" method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="name" name="name">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="email" name="email">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
 
-                <form method="post" th:action="@{'/demo/addComment/' + ${user.id}}">
-                    <td>
-                        <div class="form-group">
-                            <input class="form-control" name="comment" type="text" placeholder="Your comments"/>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group">
-                            <button class="btn btn-primary" type="submit">Prześlij</button>
-                        </div>
-                    </td>
-                </form>
-                <form method="post" th:action="@{'/demo/deleteComment/' + ${user.id}}">
-                    <td>
-                        <div class="form-group">
-                            <button class="btn btn-primary" type="submit">Usuń komentarz</button>
-                        </div>
-                    </td>
-                </form>
-            </tr>
-            </tbody>
-        </table>
+        </div>
+
+        <div class="col-sm-6">
+            <h2>Find User</h2>
+            <form action="/demo/find" method="get">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="find by name" name="name">
+                </div>
+                <button type="submit" class="btn btn-primary">Find</button>
+            </form>
+        </div>
     </div>
+
+</div>
+<div class="container">
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Comment</th>
+            <th></th>
+            <th>AddComment</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user: ${users}">
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.comment}"></td>
+            <td>
+                <a th:href="@{'/demo/deleteComment/' + ${user.id}}">
+                    <img th:src="@{'/delete.png'}" style="width:35px; height: 35px;">
+                </a>
+            </td>
+            <form method="post" th:action="@{'/demo/addComment/' + ${user.id}}">
+                <td>
+                    <div class="form-group">
+                        <input class="form-control" name="comment" type="text" placeholder="Your comments"/>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Prześlij</button>
+                    </div>
+                </td>
+            </form>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 </body>
